@@ -1,7 +1,9 @@
 package com.incubyte;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -12,9 +14,19 @@ public class StringCalculator {
         String numbers = input.startsWith("//") ? input.substring(input.indexOf("\n") + 1) : input;
         String[] tokens = numbers.split(delimiters);
 
-        return Arrays.stream(tokens)
+        int[] nums = Arrays.stream(tokens)
                 .mapToInt(StringCalculator::parseSingle)
-                .sum();
+                .toArray();
+
+        List<Integer> negatives = Arrays.stream(nums)
+                .filter(n -> n < 0)
+                .boxed()
+                .collect(Collectors.toList());
+
+        if (!negatives.isEmpty()) {
+            throw new IllegalArgumentException("Negative not allowed: " + negatives);
+        }
+        return Arrays.stream(nums).sum();
     }
 
     private static String normalizeDelimiters(String input) {
