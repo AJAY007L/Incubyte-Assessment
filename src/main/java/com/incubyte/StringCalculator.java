@@ -30,7 +30,9 @@ public class StringCalculator {
                     .collect(Collectors.joining(","));
             throw new IllegalArgumentException("Negative not allowed: " + negativesStr);
         }
-        return Arrays.stream(nums).sum();
+        return Arrays.stream(nums)
+                .filter(n -> n <= 1000)  // Ignore numbers greater than 1000
+                .sum();
     }
 
     private static String normalizeDelimiters(String input) {
