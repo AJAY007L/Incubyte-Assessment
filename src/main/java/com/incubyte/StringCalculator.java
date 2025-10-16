@@ -5,6 +5,6 @@ package com.incubyte;
 public class StringCalculator {
     public static int add(String numbers) {
         if (numbers.isEmpty()) return 0;
-        throw new UnsupportedOperationException();
+        return Integer.parseInt(numbers);
     }
 }
