@@ -9,4 +9,9 @@ public class StringCalculatorTest {
     void add_EmptyString_ReturnsZero() {
         assertEquals(0, StringCalculator.add(""));
     }
+
+    @Test
+    void add_SingleNumber_ReturnsValue() {
+        assertEquals(5, StringCalculator.add("5"));
+    }
 }
