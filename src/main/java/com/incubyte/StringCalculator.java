@@ -8,14 +8,10 @@ import java.util.regex.Pattern;
 public class StringCalculator {
     public static int add(String input) {
         if (input.isEmpty()) return 0;
-        String delimiters = ",|\n";
-        String numbers = input;
-        if (input.startsWith("//")) {
-            int idx = input.indexOf("\n");
-            delimiters = Pattern.quote(input.substring(2, idx));
-            numbers = input.substring(idx + 1);
-        }
+        String delimiters = extractDelimiter(input);
+        String numbers = input.startsWith("//") ? input.substring(input.indexOf("\n") + 1) : input;
         String[] tokens = numbers.split(delimiters);
+
         return Arrays.stream(tokens)
                 .mapToInt(StringCalculator::parseSingle)
                 .sum();
@@ -28,5 +24,13 @@ public class StringCalculator {
 
     private static int parseSingle(String number) {
         return Integer.parseInt(number);
+    }
+
+    private static String extractDelimiter(String input) {
+        if (input.startsWith("//")) {
+            int idx = input.indexOf("\n");
+            return Pattern.quote(input.substring(2, idx));
+        }
+        return ",|\n";  // default delimiters
     }
 }
