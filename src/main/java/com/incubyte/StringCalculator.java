@@ -47,7 +47,14 @@ public class StringCalculator {
     private static String extractDelimiter(String input) {
         if (input.startsWith("//")) {
             int idx = input.indexOf("\n");
-            return Pattern.quote(input.substring(2, idx));
+            String delimiterSection = input.substring(2, idx);
+            if (delimiterSection.startsWith("[") && delimiterSection.endsWith("]")) {
+                // Strip brackets and quote regex special characters
+                delimiterSection = delimiterSection.substring(1, delimiterSection.length() - 1);
+                return Pattern.quote(delimiterSection);
+            } else {
+                return Pattern.quote(delimiterSection);
+            }
         }
         return ",|\n";  // default delimiters
     }
