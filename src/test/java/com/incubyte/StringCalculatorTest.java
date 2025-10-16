@@ -40,6 +40,6 @@ public class StringCalculatorTest {
     void add_NegativeNumbers_ThrowsException() {
         Exception ex = assertThrows(IllegalArgumentException.class,
                 () -> StringCalculator.add("2,-4,3,-5"));
-        assertTrue(ex.getMessage().contains("-4, -5"));
+        assertTrue(ex.getMessage().contains("-4,-5"));
     }
 }

@@ -24,7 +24,11 @@ public class StringCalculator {
                 .collect(Collectors.toList());
 
         if (!negatives.isEmpty()) {
-            throw new IllegalArgumentException("Negative not allowed: " + negatives);
+            // Format negatives into a comma-separated string without spaces
+            String negativesStr = negatives.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(","));
+            throw new IllegalArgumentException("Negative not allowed: " + negativesStr);
         }
         return Arrays.stream(nums).sum();
     }
