@@ -19,4 +19,9 @@ public class StringCalculatorTest {
     void add_TwoNumbers_CommaSeparated() {
         assertEquals(8, StringCalculator.add("3,5"));
     }
+
+    @Test
+    void add_MultipleNumbers_ReturnsSum() {
+        assertEquals(15, StringCalculator.add("1,2,3,4,5"));
+    }
 }
