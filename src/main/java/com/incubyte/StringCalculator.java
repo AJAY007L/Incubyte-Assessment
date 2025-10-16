@@ -7,11 +7,16 @@ import java.util.Arrays;
 public class StringCalculator {
     public static int add(String input) {
         if (input.isEmpty()) return 0;
-        String normalized = input.replace("\n",",");
+        String normalized = normalizeDelimiters(input);
         String[] tokens=normalized.split(",");
         return Arrays.stream(tokens)
                 .mapToInt(StringCalculator::parseSingle)
                 .sum();
+    }
+
+    private static String normalizeDelimiters(String input) {
+        String normalized = input.replace("\n",",");
+        return normalized;
     }
 
     private static int parseSingle(String number) {
