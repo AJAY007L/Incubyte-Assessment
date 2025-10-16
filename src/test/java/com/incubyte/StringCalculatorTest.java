@@ -1,6 +1,7 @@
 package com.incubyte;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class StringCalculatorTest {
@@ -33,5 +34,12 @@ public class StringCalculatorTest {
     @Test
     void add_CustomDelimiter_Semicolon() {
         assertEquals(3, StringCalculator.add("//;\n1;2"));
+    }
+
+    @Test
+    void add_NegativeNumbers_ThrowsException() {
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> StringCalculator.add("2,-4,3,-5"));
+        assertTrue(ex.getMessage().contains("-4, -5"));
     }
 }
