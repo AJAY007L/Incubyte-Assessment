@@ -42,4 +42,9 @@ public class StringCalculatorTest {
                 () -> StringCalculator.add("2,-4,3,-5"));
         assertTrue(ex.getMessage().contains("-4,-5"));
     }
+
+    @Test
+    void add_NumbersGreaterThan1000_Ignored() {
+        assertEquals(2, StringCalculator.add("2,1001"));
+    }
 }
