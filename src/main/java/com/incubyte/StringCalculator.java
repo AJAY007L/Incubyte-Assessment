@@ -7,7 +7,8 @@ import java.util.Arrays;
 public class StringCalculator {
     public static int add(String input) {
         if (input.isEmpty()) return 0;
-        String[] tokens=input.split(",");
+        String normalized = input.replace("\n",",");
+        String[] tokens=normalized.split(",");
         return Arrays.stream(tokens)
                 .mapToInt(StringCalculator::parseSingle)
                 .sum();
