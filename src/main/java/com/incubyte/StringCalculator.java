@@ -35,11 +35,6 @@ public class StringCalculator {
                 .sum();
     }
 
-    private static String normalizeDelimiters(String input) {
-        String normalized = input.replace("\n",",");
-        return normalized;
-    }
-
     private static int parseSingle(String number) {
         return Integer.parseInt(number);
     }
@@ -50,15 +45,19 @@ public class StringCalculator {
             String delimiterSection = input.substring(2, idx);
 
             if (delimiterSection.contains("[")) {
-                List<String> delimiters = Arrays.stream(delimiterSection.split("\\]\\[")) // escape properly
-                        .map(s -> s.replace("[", "").replace("]", ""))
-                        .map(Pattern::quote)
-                        .collect(Collectors.toList());
-                return String.join("|", delimiters);
+                return parseMultipleDelimiters(delimiterSection);
             } else {
                 return Pattern.quote(delimiterSection);
             }
         }
         return ",|\n";  // default delimiters
+    }
+
+    private static String parseMultipleDelimiters(String delimiterSection) {
+        List<String> delimiters = Arrays.stream(delimiterSection.split("\\]\\[")) // escape properly
+                .map(s -> s.replace("[", "").replace("]", ""))
+                .map(Pattern::quote)
+                .collect(Collectors.toList());
+        return String.join("|", delimiters);
     }
 }
