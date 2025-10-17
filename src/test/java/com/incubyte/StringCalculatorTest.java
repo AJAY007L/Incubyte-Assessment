@@ -52,4 +52,9 @@ public class StringCalculatorTest {
     void add_CustomDelimiterOfAnyLength() {
         assertEquals(6, StringCalculator.add("//[***]\n1***2***3"));
     }
+
+    @Test
+    void add_MultipleCustomDelimiters_ShouldReturnSum() {
+        assertEquals(6, StringCalculator.add("//[*][%%]\n1*2%%3"));
+    }
 }
