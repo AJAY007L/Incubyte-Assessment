@@ -48,10 +48,13 @@ public class StringCalculator {
         if (input.startsWith("//")) {
             int idx = input.indexOf("\n");
             String delimiterSection = input.substring(2, idx);
-            if (delimiterSection.startsWith("[") && delimiterSection.endsWith("]")) {
-                // Strip brackets and quote regex special characters
-                delimiterSection = delimiterSection.substring(1, delimiterSection.length() - 1);
-                return Pattern.quote(delimiterSection);
+
+            if (delimiterSection.contains("[")) {
+                List<String> delimiters = Arrays.stream(delimiterSection.split("\\]\\[")) // escape properly
+                        .map(s -> s.replace("[", "").replace("]", ""))
+                        .map(Pattern::quote)
+                        .collect(Collectors.toList());
+                return String.join("|", delimiters);
             } else {
                 return Pattern.quote(delimiterSection);
             }
